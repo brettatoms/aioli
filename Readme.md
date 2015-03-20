@@ -3,7 +3,7 @@
 **Aioli (ayo-OH-lee)** is a little sauce on top of Python's asyncio package.  With a
 little **aioli** it makes it easier to take advantage of asyncio in synchronous code.
 
-These helpers are intended for IO bound tasks.  If our code is CPU bound then
+These helpers are intended for IO bound tasks.  If your code is CPU bound then
 **aioli** probably won't help you much unless you start getting fancy with
 passing in your own loops in with their own executors.
 
