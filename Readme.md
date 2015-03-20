@@ -30,7 +30,7 @@ for result in aioli.parallel(func, iterable):
 # will be returned in order as their available.
 is_even = lambda x: x % 2 == 0
 for result in aioli.map(is_even, range(0, 100)):
-print(result)
+    print(result)
 ```
 
 ### Filter false
