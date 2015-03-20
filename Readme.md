@@ -9,16 +9,16 @@ passing in your own loops in with their own executors.
 
 ### Map
 ```python
-# func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available
+# Func will be run asynchronously for each item in iterable and results
+# will be returned in order as their available.
 for result in aioli.map(func, iterable):
     print(result)
 ```
 
 ### Parallel
 ```python
-# func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available
+# Func will be run asynchronously for each item in iterable and results
+# will be returned as they are available.  Order is not guaranteed.
 inc = lambda x: x + 1
 for result in aioli.parallel(func, iterable):
     print(result)
@@ -26,8 +26,8 @@ for result in aioli.parallel(func, iterable):
 
 ### Filter
 ```python
-# func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available
+# Func will be run asynchronously for each item in iterable and results
+# will be returned in order as their available.
 is_even = lambda x: x % 2 == 0
 for result in aioli.map(is_even, range(0, 100)):
 print(result)
@@ -35,8 +35,8 @@ print(result)
 
 ### Filter false
 ```python
-# func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available
+# Func will be run asynchronously for each item in iterable and results
+# will be returned in order as their available.
 is_even = lambda x: x % 2 == 0
 for result in aioli.map(is_even, range(0, 100)):
     print(result)
