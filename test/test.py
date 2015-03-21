@@ -1,5 +1,6 @@
 import asyncio
 from itertools import filterfalse
+from random import random
 
 import aioli
 
@@ -12,7 +13,9 @@ def test_map_no_coroutine():
         assert index == value
 
 def test_map_with_coroutine():
-    func = asyncio.coroutine(lambda x: x)
+    def func(x):
+        yield from asyncio.sleep(random())
+        return x
     iterable = list(range(0, 5))
     for index, value in enumerate(aioli.map(func, iterable)):
         assert index == value

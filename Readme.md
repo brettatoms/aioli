@@ -12,6 +12,10 @@ own executors.
 ```python
 # Func will be run asynchronously for each item in iterable and results
 # will be returned in order as their available.
+def func(x):
+    yield from asyncio.sleep(random())
+    return x
+
 for result in aioli.map(func, iterable):
     print(result)
 ```
@@ -20,7 +24,10 @@ for result in aioli.map(func, iterable):
 ```python
 # Func will be run asynchronously for each item in iterable and results
 # will be returned as they are available.  Order is not guaranteed.
-inc = lambda x: x + 1
+def inc(x):
+    yield from asyncio.sleep(random())
+    return x + 1
+
 for result in aioli.parallel(func, iterable):
     print(result)
 ```
