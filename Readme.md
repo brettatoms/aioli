@@ -8,6 +8,15 @@ yield'ing or if your code is CPU bound then **aioli** probably won't help you
 much unless you start getting fancy with passing in your own loops in with their
 own executors.
 
+### Await
+```python
+@asyncio.coroutine
+def func(x):
+    yield from asyncio.sleep(random())
+    return x
+result = aioli.await(func(1)
+```
+
 ### Map
 ```python
 # Func will be run asynchronously for each item in iterable and results
@@ -40,6 +49,16 @@ is_even = lambda x: x % 2 == 0
 for result in aioli.map(is_even, range(0, 100)):
     print(result)
 ```
+
+### Filter false
+```python
+# Func will be run asynchronously for each item in iterable and results
+# will be returned in order as their available.
+is_even = lambda x: x % 2 == 0
+for result in aioli.map(is_even, range(0, 100)):
+    print(result)
+```
+
 
 ### Filter false
 ```python

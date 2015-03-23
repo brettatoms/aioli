@@ -2,9 +2,36 @@ import asyncio
 from itertools import filterfalse
 from random import random
 
+import pytest
+
 import aioli
 
+
 is_even = lambda x: x % 2 == 0
+
+def test_await_with_func():
+    func = lambda x: x
+    with pytest.raises(ValueError):
+        aioli.await(func(1))
+
+def test_await_with_coroutine():
+
+    @asyncio.coroutine
+    def func(x):
+        return x
+    result = aioli.await(func(1))
+    assert result == 1
+
+
+def test_await_with_task():
+
+    @asyncio.coroutine
+    def func(x):
+        return x
+    task = asyncio.async(func(1))
+    result = aioli.await(task)
+    assert result == 1
+
 
 def test_map_no_coroutine():
     func = lambda x: x
