@@ -23,7 +23,7 @@ def map(func, iterable, loop=None):
     for task in tasks:
         # "yield from" would yield each of the results individually if the task
         # return a gathered task
-        yield await(task)
+        yield await(task, loop=loop)
 
 
 def parallel(func, iterable, timeout=None, loop=None):
@@ -56,17 +56,16 @@ def reduce():
     pass
 
 def await(func, loop=None):
+
+def await(coro, loop=None):
     if loop is None:
         loop = asyncio.get_event_loop()
 
-    if not asyncio.iscoroutine(func):
-        # It's stupid to pass a plain function to await() but support it anyway.
-        func = asyncio.coroutine(func)
+    if not asyncio.iscoroutine(coro) and not isinstance(coro, asyncio.Future):
+        raise ValueError("requires a coroutine or Task")
 
-    if asyncio.iscoroutinefunction(func):
-        func = func()
+    return loop.run_until_complete(coro)
 
-    return (yield from loop.run_until_complete(func))
 
 def any():
     pass
