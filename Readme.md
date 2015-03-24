@@ -14,7 +14,7 @@ own executors.
 def func(x):
     yield from asyncio.sleep(random())
     return x
-result = aioli.await(func(1)
+result = aioli.await(func(1))
 ```
 
 ### Map
