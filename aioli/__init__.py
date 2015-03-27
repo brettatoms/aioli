@@ -55,8 +55,6 @@ def parallel(func, iterable, timeout=None, loop=None):
 def reduce():
     pass
 
-def await(func, loop=None):
-
 def await(coro, loop=None):
     if loop is None:
         loop = asyncio.get_event_loop()
