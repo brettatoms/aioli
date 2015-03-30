@@ -62,6 +62,8 @@ def await(coro, loop=None):
     if not asyncio.iscoroutine(coro) and not isinstance(coro, asyncio.Future):
         raise ValueError("requires a coroutine or Task")
 
+    # if coro is a coroutine rather than a task then run_until_completed()
+    # automatically wraps it with asyncion.async()
     return loop.run_until_complete(coro)
 
 

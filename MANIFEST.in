@@ -1,0 +1,5 @@
+include Readme.md
+include setup.cfg
+include setup.py
+include aioli/__init__.py
+include test/test.py
