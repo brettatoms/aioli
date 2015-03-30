@@ -2,10 +2,21 @@
 
 from setuptools import setup
 
-version = '0.0.3'
+extra_opts = {}
+
+try:
+    import setuptools_markdown
+except ImportError:
+    pass
+else:
+    extra_opts = {
+        "setup_requires": ['setuptools-markdown'],
+        "long_description_markdown_filename": 'Readme.md'
+    }
+
+version = '0.0.4'
 
 setup(
-    setup_requires=['setuptools-markdown'],
     name='aioli',
     packages=['aioli'],  # this must be the same as the name above
     version=version,
@@ -21,5 +32,5 @@ setup(
                    'License :: OSI Approved :: MIT License',
                    'Operating System :: OS Independent',
                    'Programming Language :: Python :: 3'],
-    long_description_markdown_filename='Readme.md'
+    **extra_opts
 )
