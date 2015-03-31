@@ -9,18 +9,28 @@ much unless you start getting fancy with passing in your own loops in with their
 own executors.
 
 ### Await
+
+The `aioli.await()` function calls a coroutine and blocks until it returns. With
+`aioli.await()` it's easier to call an asynchrounous coroutine from synchronous
+code.
+
 ```python
 @asyncio.coroutine
 def func(x):
     yield from asyncio.sleep(random())
     return x
+
 result = aioli.await(func(1))
 ```
 
 ### Map
+
+The `aioli.map()` functions applies the coroutine to every item of iterable. The
+results are yielded as they are available and in the same sort order as the
+iterable.
+
 ```python
-# Func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available.
+@asyncio.coroutine
 def func(x):
     yield from asyncio.sleep(random())
     return x
@@ -30,9 +40,13 @@ for result in aioli.map(func, iterable):
 ```
 
 ### Parallel
+
+The `aioli.parallel()` function applies the coroutine to every item of an
+iterable.  The difference with `aioli.parallel()` and `aioli.map()` is that the
+results are returned as they are available rather than in order.
+
 ```python
-# Func will be run asynchronously for each item in iterable and results
-# will be returned as they are available.  Order is not guaranteed.
+@asyncio.coroutine
 def inc(x):
     yield from asyncio.sleep(random())
     return x + 1
@@ -42,28 +56,24 @@ for result in aioli.parallel(func, iterable):
 ```
 
 ### Filter
+
+The `aiolo.filter()` function applies an asynchronous coroutine to an iterable
+and yields the results where the coroutine returns `True`.  The results are
+yielded in same order as the iterable.
+
 ```python
-# Func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available.
+
 is_even = lambda x: x % 2 == 0
 for result in aioli.map(is_even, range(0, 100)):
     print(result)
 ```
 
 ### Filter false
-```python
-# Func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available.
-is_even = lambda x: x % 2 == 0
-for result in aioli.map(is_even, range(0, 100)):
-    print(result)
-```
 
+The `aioli.filterfalse()` function is the same as `aioli.filter()` but returns those elements
+where the coroutine return `False`.
 
-### Filter false
 ```python
-# Func will be run asynchronously for each item in iterable and results
-# will be returned in order as their available.
 is_even = lambda x: x % 2 == 0
 for result in aioli.map(is_even, range(0, 100)):
     print(result)
